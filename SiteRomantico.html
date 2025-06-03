@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Você me ama?</title>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #ffb6c1, #ff69b4);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 3em;
+      color: white;
+      margin-bottom: 40px;
+      text-shadow: 2px 2px #d61c6c;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 30px;
+    }
+
+    button {
+      padding: 15px 40px;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    #simBtn {
+      background-color: #ffffff;
+      color: #ff1493;
+      font-weight: bold;
+    }
+
+    #naoBtn {
+      background-color: #ff1493;
+      color: white;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Você me ama?</h1>
+  <div class="buttons">
+    <button id="simBtn">Sim</button>
+    <button id="naoBtn">Não</button>
+  </div>
+
+  <script>
+    // Inicializa EmailJS
+    emailjs.init("HaR1xtE6rjU0N2Hhj");
+
+    const simBtn = document.getElementById('simBtn');
+    const naoBtn = document.getElementById('naoBtn');
+    let fontSize = 20;
+
+    naoBtn.addEventListener('click', () => {
+      fontSize += 20;
+      simBtn.style.fontSize = fontSize + 'px';
+
+      if (fontSize > 200) {
+        naoBtn.style.display = 'none';
+      }
+    });
+
+    simBtn.addEventListener('click', () => {
+      // Envia o e-mail
+      emailjs.send("service_ch2wiqy", "template_664vvu9", {
+        to_name: "Luciana",
+        from_name: "Kiq"
+      })
+      .then(() => {
+        document.body.innerHTML = `
+          <h1 style="color: white; font-size: 3em;">Eu sabia! 😍</h1>
+          <p style="font-size: 1.5em; color: #fff;">Feliz Dia dos Namorados, meu amor!</p>
+          <p style="font-size: 1.2em; color: #fff;">(E olha seu e-mail... 💌)</p>
+        `;
+      }, (error) => {
+        alert("Erro ao enviar o e-mail 😢: " + error.text);
+      });
+    });
+  </script>
+</body>
+</html>
